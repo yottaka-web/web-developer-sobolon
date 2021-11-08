@@ -922,7 +922,7 @@ contact
 }
 
 .contact-form__dl {
-
+  margin-top: 24px;
 }
 
 .contact-form__row {
@@ -1149,9 +1149,21 @@ input[type="checkbox"]:checked + label:before {
       padding: 10px;
     }
   }
-  [type="submit"]:hover {
+}
+
+#js-submit {
+  &.is-active {
     color: #fff;
     background: $color-main;
+  }
+}
+
+.contact-message {
+  text-align: center;
+  margin-top: 60px;
+  display: none;
+  &.-error {
+    color: #f00;
   }
 }
 

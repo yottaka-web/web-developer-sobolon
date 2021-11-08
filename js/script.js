@@ -2,7 +2,7 @@
 new WOW().init();
 
 
-jQuery('.drawer-icon').on('click', function($) {
+jQuery('.drawer-icon').on('click', function(jQuery) {
   // e.preventDefault();
   // jQuery(this).alert('click');
 
@@ -34,11 +34,48 @@ jQuery('a[href^="#"]').on('click', function () {
   }, 500);
   return false;
 });
-jQuery(window).on('scroll', function() {
-  console.log();
-  if ( 100 < jQuery(this).scrollTop() ) {
-    jQuery('.to-top').addClass('is-show')
-  } else {
-    jQuery('.to-top').removeClass('is-show')
-  }
+
+// google form
+$(document).ready(function () {
+
+  let $form = $('#js-form');
+  $form.submit(function (e) {  
+    $.ajax({
+      url: $form.attr('action'),
+      data: $form.serialize(),
+      type: "POST",
+      dataType: "xml",
+      statusCode: {
+        // 送信に成功したとき
+        0: function () {
+          $form.slideUp()
+          $('#js-success').slideDown()
+        },
+        // 送信に失敗したとき
+        200: function () {
+          $form.slideUp()
+          $('#js-error').slideDown()
+          
+        }
+      }
+    });
+    e.preventDefault();
+    return false;
+  });
+  let $submit = $('#js-submit');
+  $('#js-form input, #js-form textarea').on('change', function() {
+    if(
+      $('#js-form input[type="text"]').val() !== "" &&
+      $('#js-form input[type="email"]').val() !== "" &&
+      $('#js-form input[name="entry.1643295861"]').prop('checked') === true
+    ) {
+      // 全て入力された時
+      $submit.prop('disabled', false)
+      $submit.addClass('is-active')
+    } else {
+      // 入力されていない時
+      $submit.prop('disabled', true)
+      $submit.removeClass('is-active')
+    }
+  });
 });
